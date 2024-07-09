@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const Details = () => {
   return (
-
     <div className='w-full h-screen'>
       <div className='w-[75%] h-screen flex items-center m-auto gap-48'>
         <div className='h-content flex justify-center gap-36'>
@@ -18,11 +17,9 @@ const Details = () => {
               <Link className='border border-red-200 text-red-500 text-center w-24 py-2'>Delete</Link>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-    
   )
 }
 

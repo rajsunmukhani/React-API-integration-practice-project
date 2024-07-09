@@ -6,6 +6,7 @@ import Details from './Components/Details'
 const App = () => {
   return (
     <div className='flex'>
+      
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/details/:id' element={<Details/>}/>
