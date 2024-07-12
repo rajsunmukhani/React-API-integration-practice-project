@@ -23,7 +23,7 @@ const Nav = () => {
         <div className='w-[80%]'>
           {[...categories].map((cat,index) => {
             return (
-              <Link key={index} className='my-2 hover:scale-105 flex items-center gap-3 text-l font-bold'>
+              <Link to={`/?category=${cat}`} key={index} className='my-2 hover:scale-105 flex items-center gap-3 text-l font-bold'>
                 <span style={{backgroundColor : colours()}} className='block rounded-full w-2 h-2'></span>
                  <h1 className='capitalize'>{cat}</h1> 
               </Link>
