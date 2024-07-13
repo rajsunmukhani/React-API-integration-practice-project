@@ -17,7 +17,7 @@ const Nav = () => {
 
   return (
     <nav className='w-[20vw] h-screen bg-zinc-100 flex flex-col items-center pt-5'>
-        <a className='bg-red-100 flex items-center text-center w-[50%] p-3 text-red-500 rounded-md' href=""> +  Create New Products</a>
+        <Link to={'/create'} className='bg-red-100 flex items-center text-center w-[50%] p-3 text-red-500 rounded-md' href=""> +  Create New Products</Link>
         <hr className='w-[80%] my-5' />
         <h1 className='w-[80%] text-2xl text-red-700 font-semibold py-5'>Categories...</h1>
         <div className='w-[80%]'>
