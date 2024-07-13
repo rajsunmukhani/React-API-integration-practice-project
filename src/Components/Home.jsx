@@ -19,7 +19,7 @@ const Home = () => {
   const category = search ? decodeURI(search.split('=')[1]) : null; 
 
   const getFilteredProducts = async() =>{
-    const filteredProducts = await axios.get(`/products/category/${category}`);
+    const {data} = await axios.get(`/products/category/${category}`);
     setFilteredProducts(filteredProducts);
   }
   
@@ -32,19 +32,25 @@ const Home = () => {
     navigate('/');
   }
 
+  const productsToDisplay = filteredProducts ? filteredProducts : Product;
+
 
   return Product ? (
     <>
     <Nav/>
     <div className='h-[100vh] w-[80vw] p-5 py-24 flex flex-wrap justify-center gap-5 overflow-y-auto'>
-      {(filteredProducts ? filteredProducts.data : Product.data).map((prod) => {
-        return (
-          <Link key={prod.id} to={`/details/${prod.id}`} className='card hover:scale-105 cursor-pointer h-[40vh] w-[15vw] rounded-2xl shadow flex gap-5 items-center justify-center flex-col'>
-          <div className='h-[70%] w-[10vw] bg-contain bg-no-repeat' style={{backgroundImage : `url(${prod.image})`}}></div>
-          <h4 style={{color : colours()}} className='text-center'>{prod.title}</h4>
-        </Link>
-        )
-      })}
+    {productsToDisplay && productsToDisplay.length > 0 ? (
+          productsToDisplay.map((prod) => {
+            return (
+              <Link key={prod.id} to={`/details/${prod.id}`} className='card hover:scale-105 cursor-pointer h-[40vh] w-[15vw] rounded-2xl shadow flex gap-5 items-center justify-center flex-col'>
+                <div className='h-[70%] w-[10vw] bg-contain bg-no-repeat' style={{ backgroundImage: `url(${prod.image})` }}></div>
+                <h4 style={{ color: colours() }} className='text-center'>{prod.title}</h4>
+              </Link>
+            );
+          })
+        ) : (
+          <Loading />
+        )}
       {category !== null && (
         <button onClick={clickHandler}  className='absolute left-[22%] top-[5%] flex items-center gap-2'>
           <i className="text-2xl ri-home-fill"></i>

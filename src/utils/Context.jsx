@@ -4,11 +4,11 @@ import React, { createContext, useEffect, useState } from 'react'
 export const ProductContext = createContext();
 
 const Context = (props) => {
-    const [Products, setProducts] = useState(null);
+    const [Products, setProducts] = useState([]);
 
     const getProducts = async() => {
       try {
-        const data = await axios.get('/products');
+        const {data} = await axios.get('/products');
         setProducts(data);
       } catch (error) {
        console.error(error);

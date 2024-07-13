@@ -6,9 +6,11 @@ const Nav = () => {
   const [Product] = useContext(ProductContext);
   const categories = new Set();
 
-  Product.data.forEach((prod) => {
-    categories.add(prod.category);
-  })
+  if(Product && Product.length > 0){
+    Product.forEach((prod) => {
+      categories.add(prod.category);
+    })
+  }
 
   const colours = () => {
     return `rgba(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},0.25)`
