@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import React, { useContext, useState } from 'react'
 import { ProductContext } from '../utils/Context';
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
 
@@ -11,6 +12,7 @@ const Create = () => {
     const [category, setcategory] = useState("");
     const [description, setdescription] = useState("");
 
+    const navigate = useNavigate();
 
     const submitHandler = (e) => {
       e.preventDefault();
@@ -34,10 +36,11 @@ const Create = () => {
         return;
       }
 
-      setProduct([...Product.data,newProduct]);
+      setProduct([...Product,newProduct]);
+      localStorage.setItem('products',JSON.stringify([...Product,newProduct]));
+      navigate('/');
     }
 
-    console.log(Product);
 
 
   return (

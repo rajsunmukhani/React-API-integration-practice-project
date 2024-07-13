@@ -3,7 +3,6 @@ import Nav from './Nav'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Loading from './Loading';
 import { ProductContext } from '../utils/Context';
-import axios from '../utils/axios';
 
 const Home = () => {
 
@@ -19,8 +18,8 @@ const Home = () => {
   const category = search ? decodeURI(search.split('=')[1]) : null; 
 
   const getFilteredProducts = async() =>{
-    const {data} = await axios.get(`/products/category/${category}`);
-    setFilteredProducts(filteredProducts);
+    const data = Product.filter((prod) => prod.category === category)
+    setFilteredProducts(data);
   }
   
   useEffect(() => {
@@ -33,7 +32,6 @@ const Home = () => {
   }
 
   const productsToDisplay = filteredProducts ? filteredProducts : Product;
-
 
   return Product ? (
     <>

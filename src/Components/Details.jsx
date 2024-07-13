@@ -1,29 +1,29 @@
-import axios from '../utils/axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Loading from './Loading';
 import { ProductContext } from '../utils/Context';
 
 const Details = () => {
   const {id} = useParams();
-  const [Products] = useContext(ProductContext);
+  const [Products,setProducts] = useContext(ProductContext);
   const [tempProduct,setTempProduct] = useState(null);
-
-
-  // const getProduct = async() => {
-  //   const {data} = await axios.get(`/products/${id}`)
-  //   setTempProduct(data);
-  // }
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // getProduct();
     if(Products && Products.length > 0){
-      const product = Products.find(p => p.id === parseInt(id));
+      const product = Products.find(p => p.id.toString() === id.toString());
       if (product) {
         setTempProduct(product);
       }
     }
   }, [Products,id]);
+
+  const deleteHandler = (id) => {
+    const copyProduct = Products.filter(prod => prod.id.toString() !== id.toString());
+    setProducts(copyProduct);
+    localStorage.setItem('products',JSON.stringify(copyProduct));
+    navigate('/');
+  }
   
 
   return tempProduct ? (
@@ -37,8 +37,8 @@ const Details = () => {
             <h2 className='text-6xl font-semibold'>$ {tempProduct.price}</h2>
             <p className='text-l w-[100%] h-[20%] text-ellipsis whitespace-wrap overflow-hidden text-zinc-700'>{tempProduct.description}</p>
             <div className="buttons flex gap-10 w-full py-8 flex">
-              <Link className='border border-blue-200 text-blue-500 text-center w-24 py-2'>Edit</Link>
-              <Link className='border border-red-200 text-red-500 text-center w-24 py-2'>Delete</Link>
+              <Link  to={`/edit/${tempProduct.id}`} className='border border-blue-200 text-blue-500 text-center w-24 py-2'>Edit</Link>
+              <button onClick={() => deleteHandler(tempProduct.id)} className='border border-red-200 text-red-500 text-center w-24 py-2'>Delete</button>
             </div>
           </div>
         </div>
